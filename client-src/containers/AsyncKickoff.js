@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Component that kicks off an asynchronous request on mount and renders nothing.
 class AsyncKickoff extends React.Component {
@@ -12,8 +13,8 @@ class AsyncKickoff extends React.Component {
 }
 
 AsyncKickoff.propTypes = {
-  creds: React.PropTypes.object.isRequired,
-  doRequest: React.PropTypes.func.isRequired
+  creds: PropTypes.object.isRequired,
+  doRequest: PropTypes.func.isRequired
 }
 
 export default AsyncKickoff

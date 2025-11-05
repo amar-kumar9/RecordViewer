@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
@@ -7,6 +8,7 @@ import RecordViewer from '../components/RecordViewer';
 // Presentational Component that uses state to decide how to
 // construct the RecordViewer.
 const mapStateToProps = (state) => {
+  console.log('mapStateToProps called with state:', state);
   if (state.record.record) {
     return {
       screen: 'RECORD',

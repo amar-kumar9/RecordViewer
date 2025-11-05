@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import RecordButton from './RecordButton'
-import {ModalContainer, ModalDialog} from 'react-modal-dialog'
+import Modal from 'react-modal';
 
 function createNodeMap(fieldTree, nodeMap = [], size = 0 ) {
   for (var property in fieldTree) {
@@ -73,16 +73,16 @@ const DepGraphEditor = ({depGraph, picklists, editValues, onFieldValueUpdate, on
 
   return (
     <div key="depGraphContainer">
-      <ModalContainer >
-        <ModalDialog>
+      
+        <Modal isOpen={true} onRequestClose={onClose}>
           <div key="depGraphNodes">
             { getEditorNodes(depGraph.fieldTree, fieldComponents, fieldLabels) }
           </div>
           <div className="slds-p-left--medium slds-p-top--small slds-p-botom--medium" key="depGraphCloseButtonDiv">
             <RecordButton key="depGraphCloseButton" label='Close' onClick={onClose} />
           </div>
-        </ModalDialog>
-      </ModalContainer>
+        </Modal>
+      
     </div>
   )
 }

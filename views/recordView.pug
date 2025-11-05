@@ -11,7 +11,7 @@ html
     link(rel='stylesheet', href='json-inspector.css')
 
     script(type='text/javascript', src='/libs/jquery/jquery.min.js')
-    script(type='text/javascript', src='root.js')
+  script(type='text/javascript', src='/root.js')
 
   body
     .slds-grid.slds-wrap
@@ -23,6 +23,10 @@ html
     #root
     script.
       $( document ).ready(function() {
-        let rootNode = document.getElementById("root");
-        renderRoot("#{targetUrl}", "#{accessToken}", "#{recordId}", rootNode);
+        var rootNode = document.getElementById("root");
+        if (typeof window.renderRoot === 'function') {
+          window.renderRoot("#{targetUrl}", "#{accessToken}", "#{recordId}", rootNode);
+        } else {
+          console.error('renderRoot not defined; client bundle may not have loaded.');
+        }
       });

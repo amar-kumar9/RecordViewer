@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import JSONPretty from 'react-json-pretty';
-import Inspector from 'react-json-inspector';
+import ReactJson from 'react-json-view';
 import AsyncKickoff from '../containers/AsyncKickoff'
 import CreateableEntitiesList from './CreateableEntitiesList'
 import RecentItemList from './RecentItemList'
@@ -27,10 +28,8 @@ let getFooter = (screen, error, rawjson) => {
   if (errorNode) {
     return (
       <div className="slds-p-left--medium slds-p-top--small slds-p-botom--medium">
-        { errorNode }
-        <RecordButton key="showJsonButton" label='Show JSON' onClick={() => $(".raw").toggle()} />
         <div className="raw" style={{"display":"none"}}>
-          <Inspector key="rawjson" data={rawjson} />
+          <ReactJson src={rawjson} />
         </div>
       </div>
       );
@@ -39,7 +38,7 @@ let getFooter = (screen, error, rawjson) => {
       <div className="slds-p-left--medium slds-p-top--small slds-p-botom--medium">
         <RecordButton key="showJsonButton" label='Show JSON' onClick={() => $(".raw").toggle()} />
         <div className="raw" style={{"display":"none"}}>
-          <Inspector key="rawjson" data={rawjson} />
+          <ReactJson src={rawjson} />
         </div>
       </div>
       );
