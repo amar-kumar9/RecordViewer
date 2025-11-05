@@ -100,7 +100,7 @@ app.use(cookieParser());
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'asdfasfdsafsdfsd'
+  secret: process.env.SESSION_SECRET || 'change-this-secret-in-production'
 }));
 
 // use morgan for request logging
