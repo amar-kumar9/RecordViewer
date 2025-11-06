@@ -21,7 +21,7 @@ module.exports = {
     certificateFilePath: 'nginx/ssl.crt',
 
     // http port
-    httpPort: process.env.PORT || 3001,
+    httpPort: process.env.PORT || 5000,
 
     // https port
     httpsPort: 3001,

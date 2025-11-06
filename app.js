@@ -46,14 +46,14 @@ function startHttpServer(app) {
   try {
       httpServer = http.createServer(app);
       httpServer.on('error', httpError);
-      httpServer.listen(config.httpPort);
+      httpServer.listen(config.httpPort, '0.0.0.0');
 
       // if the app is being served through nginx, show the nginx information
       // instead of the HTTP port for the app
       if (process.env.NGINX_PORT) {
         console.log('Server started: https://localhost:' + process.env.NGINX_PORT);
       } else {
-        console.log('Server started on HTTP: ' + config.httpPort);
+        console.log('Server started on HTTP: 0.0.0.0:' + config.httpPort);
       }
 
   } catch (e) {
@@ -100,7 +100,7 @@ app.use(cookieParser());
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'asdfasfdsafsdfsd'
+  secret: process.env.SESSION_SECRET || 'change-this-secret-in-production'
 }));
 
 // use morgan for request logging
