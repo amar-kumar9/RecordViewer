@@ -10,6 +10,8 @@ import cloneDefaultsFetcher from './cloneDefaultsFetcher'
 import createDefaultsFetcher from './createDefaultsFetcher'
 import picklistsFetcher from './picklistsFetcher'
 import depGraphValueUpdater from './depGraphValueUpdater'
+import casesFetcher from './casesFetcher'
+import caseFeedSaga from './caseFeedSaga'
 
 export default function* rootSaga() {
   yield takeEvery('FETCH_RECORD', recordFetcher)
@@ -22,4 +24,7 @@ export default function* rootSaga() {
   yield takeEvery('FETCH_CLONE_DEFAULTS', cloneDefaultsFetcher);
   yield takeEvery('FETCH_PICKLISTS', picklistsFetcher);
   yield takeEvery('UPDATE_DEP_GRAPH_FIELD_VALUE', depGraphValueUpdater)
+  yield takeEvery('FETCH_CASES', casesFetcher)
+  yield takeEvery('FETCH_CASE_FEED', caseFeedSaga.fetchCaseFeed)
+  yield takeEvery('POST_CASE_FEED', caseFeedSaga.postCaseFeed)
 }
