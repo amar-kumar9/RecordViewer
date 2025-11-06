@@ -7,6 +7,7 @@ import RecentItemList from './RecentItemList'
 import Record from './Record'
 import RecordButton from './RecordButton'
 import RecordHeader from './RecordHeader'
+import NavigationButtons from './NavigationButtons'
 import NotFoundError from './errors/NotFoundError'
 import PageError from './errors/PageError'
 import RecordError from './errors/RecordError'
@@ -47,6 +48,7 @@ let getFooter = (screen, error, rawjson) => {
 }
 
 const RecordViewer =  ({screen, updateEntities, updateItems, creds, error, record, recordId, headerRecordId, rawjson, mode, context, picklists, depGraph, entities, recentItems, onFormFactorSelect, onRecordIdUpdate, onViewRecordClick, onNewRecordClick, onCloneClick, onRecordClick, onBackClick, onDeleteClick, onEditClick, onSaveClick, onSaveNewClick, onFieldValueUpdate, onDepGraphFieldValueUpdate, onFetchEntities, onFetchPicklist, onFetchRecord, onFetchRecentItems, onEditDepGraph, onDepGraphClose, prevMode}) => {
+  const navNode = <NavigationButtons />
   if (screen == 'RECORD') {
     let layoutMode;
     if (mode === 'EditDepGraph') {
@@ -59,6 +61,7 @@ const RecordViewer =  ({screen, updateEntities, updateItems, creds, error, recor
 
     return (
       <div>
+        {navNode}
         {layoutMode == "View" && 
           <RecordHeader formFactor={context.formFactor}
                 recordId={headerRecordId}
@@ -91,6 +94,7 @@ const RecordViewer =  ({screen, updateEntities, updateItems, creds, error, recor
   } else if (screen == 'FETCH_RECORD') {
     return (
       <div>
+        {navNode}
         <AsyncKickoff
           creds={creds}
           doRequest={(credsIn) => onFetchRecord(credsIn, recordId, context)} />
@@ -107,6 +111,7 @@ const RecordViewer =  ({screen, updateEntities, updateItems, creds, error, recor
   } else if (screen == 'RECENT') {
     return (
       <div>
+        {navNode}
         {updateItems &&
           <AsyncKickoff
             creds={creds}
