@@ -14,7 +14,7 @@ export default function* casesFetcher(action) {
     const userInfoResp = yield call(fetch, instanceUrl + '/services/oauth2/userinfo', { method: 'GET', headers: { 'Authorization': 'Bearer ' + accessToken }})
     const userInfo = yield userInfoResp.json()
     console.log('casesFetcher saga: User info response:', userInfo)
-    const userId = userInfo.user_id
+    const userId = userInfo.user_id || userInfo.userId || userInfo.id
     console.log('casesFetcher saga: Got userId:', userId)
 
     if (!userId) {
