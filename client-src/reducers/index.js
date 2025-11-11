@@ -10,6 +10,8 @@ import rawjson from './rawjson'
 import error from './error'
 import picklists from './picklists.js'
 import depGraph from './depGraph.js'
+import cases from './cases'
+import caseFeed from './caseFeed'
 
 export default combineReducers( {
   login,
@@ -17,6 +19,8 @@ export default combineReducers( {
   header,
   recentitems,
   record,
+  cases,
+  caseFeed,
   picklists,
   entities,
   rawjson,

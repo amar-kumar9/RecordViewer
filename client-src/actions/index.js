@@ -20,6 +20,61 @@ export const fetchRecentItems = (creds) => {
   }
 }
 
+export const fetchCases = (creds, page=1, pageSize=10) => {
+  return {
+    type: 'FETCH_CASES',
+    creds,
+    page,
+    pageSize
+  }
+}
+
+export const receiveCases = (cases, totalSize, page, pageSize) => {
+  return {
+    type: 'RECEIVE_CASES',
+    cases,
+    totalSize,
+    page,
+    pageSize,
+    receivedAt: Date.now()
+  }
+}
+
+export const fetchCaseFeed = (creds, caseId) => {
+  return {
+    type: 'FETCH_CASE_FEED',
+    creds,
+    caseId
+  }
+}
+
+export const receiveCaseFeed = (caseId, feedItems) => {
+  return {
+    type: 'RECEIVE_CASE_FEED',
+    caseId,
+    feedItems,
+    receivedAt: Date.now()
+  }
+}
+
+export const postCaseFeed = (creds, caseId, message) => {
+  return {
+    type: 'POST_CASE_FEED',
+    creds,
+    caseId,
+    message
+  }
+}
+
+export const receiveNewFeedItem = (caseId, item) => {
+  return {
+    type: 'RECEIVE_NEW_FEED_ITEM',
+    caseId,
+    item,
+    receivedAt: Date.now()
+  }
+}
+
 export const receiveEntities = (entities) => {
   return {
     type: 'RECEIVE_ENTITIES',
