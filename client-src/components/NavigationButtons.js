@@ -31,8 +31,9 @@ export default class NavigationButtons extends React.Component {
   }
 
   goView() {
-    // default example case view
-    window.location.hash = '#/case/12345?subject=' + encodeURIComponent('Example case subject')
+    // User must select a case from the list first
+    alert('Please open Case List and click a case to view it.')
+    this.goList()
   }
 
   render() {
