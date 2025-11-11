@@ -6,7 +6,7 @@ export function* fetchCaseFeed(action) {
   const instanceUrl = creds.instanceUrl
   const accessToken = creds.accessToken
 
-  const url = instanceUrl + '/services/data/v43.0/chatter/feeds/record/' + caseId + '/feed-elements'
+  const url = instanceUrl + '/services/data/v58.0/chatter/feeds/record/' + caseId + '/feed-elements'
   const req = {
     method: 'GET',
     headers: {
@@ -35,7 +35,7 @@ export function* postCaseFeed(action) {
   const instanceUrl = creds.instanceUrl
   const accessToken = creds.accessToken
 
-  const url = instanceUrl + '/services/data/v43.0/chatter/feeds/record/' + caseId + '/feed-elements'
+  const url = instanceUrl + '/services/data/v58.0/chatter/feeds/record/' + caseId + '/feed-elements'
   const body = JSON.stringify({ body: { messageSegments: [{ type: 'Text', text: message }] } })
   const req = {
     method: 'POST',
