@@ -14,6 +14,7 @@ import casesFetcher from './casesFetcher'
 import caseFeedSaga from './caseFeedSaga'
 
 export default function* rootSaga() {
+  console.log('rootSaga: Starting up and registering action listeners')
   yield takeEvery('FETCH_RECORD', recordFetcher)
   yield takeEvery('FETCH_RECENT_ITEMS', recentItemsFetcher)
   yield takeEvery('DELETE_RECORD', recordDeleter)
@@ -24,7 +25,9 @@ export default function* rootSaga() {
   yield takeEvery('FETCH_CLONE_DEFAULTS', cloneDefaultsFetcher);
   yield takeEvery('FETCH_PICKLISTS', picklistsFetcher);
   yield takeEvery('UPDATE_DEP_GRAPH_FIELD_VALUE', depGraphValueUpdater)
+  console.log('rootSaga: Registering FETCH_CASES listener with casesFetcher')
   yield takeEvery('FETCH_CASES', casesFetcher)
   yield takeEvery('FETCH_CASE_FEED', caseFeedSaga.fetchCaseFeed)
   yield takeEvery('POST_CASE_FEED', caseFeedSaga.postCaseFeed)
+  console.log('rootSaga: All listeners registered successfully')
 }

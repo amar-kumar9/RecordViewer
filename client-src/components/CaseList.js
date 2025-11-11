@@ -24,6 +24,7 @@ class CaseList extends React.Component {
       console.warn('Cannot fetch cases: missing credentials')
       return
     }
+    console.log('CaseList: Dispatching FETCH_CASES action with:', { creds: { instanceUrl: creds.instanceUrl, accessToken: creds.accessToken ? '[PRESENT]' : '[MISSING]' }, page, pageSize })
     this.props.fetchCases(creds, page, pageSize)
   }
 
@@ -58,6 +59,8 @@ class CaseList extends React.Component {
             <tr>
               <th style={{textAlign: 'left', borderBottom: '1px solid #ccc'}}>Case Number</th>
               <th style={{textAlign: 'left', borderBottom: '1px solid #ccc'}}>Subject</th>
+              <th style={{textAlign: 'left', borderBottom: '1px solid #ccc'}}>Status</th>
+              <th style={{textAlign: 'left', borderBottom: '1px solid #ccc'}}>Priority</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +68,8 @@ class CaseList extends React.Component {
               <tr key={c.Id} onClick={() => this.onRowClick(c)} style={{cursor: 'pointer'}}> 
                 <td style={{padding: '6px 4px'}}>{c.CaseNumber}</td>
                 <td style={{padding: '6px 4px'}}>{c.Subject}</td>
+                <td style={{padding: '6px 4px'}}>{c.Status}</td>
+                <td style={{padding: '6px 4px'}}>{c.Priority}</td>
               </tr>
             ))}
           </tbody>
