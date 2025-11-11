@@ -24,6 +24,7 @@ class CaseList extends React.Component {
       console.warn('Cannot fetch cases: missing credentials')
       return
     }
+    console.log('CaseList: Dispatching FETCH_CASES action with:', { creds: { instanceUrl: creds.instanceUrl, accessToken: creds.accessToken ? '[PRESENT]' : '[MISSING]' }, page, pageSize })
     this.props.fetchCases(creds, page, pageSize)
   }
 
