@@ -16,6 +16,12 @@ export function* fetchCaseFeed(action) {
   }
   try {
     const resp = yield call(fetch, url, req)
+    if (!resp || !resp.ok) {
+      const text = yield resp.text()
+      console.error('Case feed fetch failed: ' + resp.status + ' ' + text)
+      yield put(receiveCaseFeed(caseId, []))
+      return
+    }
     const json = yield resp.json()
     const items = json.elements || json.items || []
     yield put(receiveCaseFeed(caseId, items))
@@ -43,6 +49,11 @@ export function* postCaseFeed(action) {
 
   try {
     const resp = yield call(fetch, url, req)
+    if (!resp || !resp.ok) {
+      const text = yield resp.text()
+      console.error('Post case feed failed: ' + resp.status + ' ' + text)
+      return
+    }
     const json = yield resp.json()
     // The created feed element may be in json; append to feed
     yield put(receiveNewFeedItem(caseId, json))

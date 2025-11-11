@@ -25,6 +25,12 @@ export default function* casesFetcher(action) {
     }
 
     const response = yield call(fetch, qUrl, req)
+    if (!response || !response.ok) {
+      const text = yield response.text()
+      console.error('Cases query failed: ' + response.status + ' ' + text)
+      yield put(receiveCases([], 0, page, pageSize))
+      return
+    }
     const responseJson = yield response.json()
     const records = responseJson.records || []
     const totalSize = responseJson.totalSize || records.length

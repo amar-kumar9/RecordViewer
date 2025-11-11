@@ -11,12 +11,19 @@ class CaseList extends React.Component {
 
   componentDidMount() {
     const { creds } = this.props
-    this.fetchPage(1, creds)
+    // Only fetch if credentials are available (app has logged-in user)
+    if (creds && creds.accessToken && creds.instanceUrl) {
+      this.fetchPage(1, creds)
+    }
   }
 
   fetchPage(page, creds) {
     const pageSize = 10
     this.setState({ page: page })
+    if (!creds || !creds.accessToken || !creds.instanceUrl) {
+      console.warn('Cannot fetch cases: missing credentials')
+      return
+    }
     this.props.fetchCases(creds, page, pageSize)
   }
 
@@ -32,6 +39,15 @@ class CaseList extends React.Component {
     const pageSize = casesState.pageSize || 10
     const start = (page - 1) * pageSize + 1
     const end = Math.min(page * pageSize, total)
+
+    if (!this.props.creds || !this.props.creds.accessToken) {
+      return (
+        <div style={{border: '1px solid #ddd', padding: '8px'}}>
+          <h3>Case List</h3>
+          <div>Please log in to view cases.</div>
+        </div>
+      )
+    }
 
     return (
       <div style={{border: '1px solid #ddd', padding: '8px'}}>

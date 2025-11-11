@@ -32,7 +32,10 @@ class CaseView extends React.Component {
       window.addEventListener('hashchange', this.onHashChange)
     }
     const { caseId } = this.state
-    if (caseId) this.props.fetchCaseFeed(this.props.creds, caseId)
+    // Only fetch feed when we have a caseId and valid credentials
+    if (caseId && this.props.creds && this.props.creds.accessToken && this.props.creds.instanceUrl) {
+      this.props.fetchCaseFeed(this.props.creds, caseId)
+    }
   }
 
   componentWillUnmount() {
@@ -44,19 +47,34 @@ class CaseView extends React.Component {
   onHashChange() {
     const parsed = parseHash()
     this.setState(parsed)
-    if (parsed.caseId) this.props.fetchCaseFeed(this.props.creds, parsed.caseId)
+    if (parsed.caseId && this.props.creds && this.props.creds.accessToken && this.props.creds.instanceUrl) {
+      this.props.fetchCaseFeed(this.props.creds, parsed.caseId)
+    }
   }
 
   onPost() {
     const { caseId, message } = this.state
     if (!message || message.trim().length === 0) return
+    if (!this.props.creds || !this.props.creds.accessToken || !this.props.creds.instanceUrl) {
+      console.warn('Cannot post to chatter: missing credentials')
+      return
+    }
     this.props.postCaseFeed(this.props.creds, caseId, message)
     this.setState({ message: '' })
   }
 
   render() {
-    const { caseId, subject, message } = this.state
+  const { caseId, subject, message } = this.state
     const feedItems = (this.props.caseFeed && this.props.caseFeed.feeds && this.props.caseFeed.feeds[caseId]) || []
+
+    if (!this.props.creds || !this.props.creds.accessToken) {
+      return (
+        <div style={{border: '1px solid #ddd', padding: '8px'}}>
+          <h3>Case View</h3>
+          <div>Please log in to view case details and Chatter.</div>
+        </div>
+      )
+    }
 
     return (
       <div style={{border: '1px solid #ddd', padding: '8px'}}>
